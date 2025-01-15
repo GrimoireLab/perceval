@@ -1093,26 +1093,19 @@ class TestBackendCommandArgumentParser(unittest.TestCase):
         with self.assertRaises(AttributeError):
             _ = parser.parse(*args)
 
-    def test_fetch_archive_needs_category(self):
-        """Test if fetch-archive needs a category"""
+    def test_default_category(self):
+        """Test whether a default category is set if none is provided"""
 
-        args = ['--fetch-archive']
-        parser = BackendCommandArgumentParser(MockedBackendCommand.BACKEND,
-                                              archive=True)
-
-        with self.assertRaises(AttributeError):
-            _ = parser.parse(*args)
-
-    def test_remove_empty_category(self):
-        """Test whether category argument is removed when no value is given"""
-
+        # No category is provided
         args = []
         parser = BackendCommandArgumentParser(MockedBackendCommand.BACKEND,
                                               archive=True)
         parsed_args = parser.parse(*args)
 
-        with self.assertRaises(AttributeError):
-            _ = parsed_args.category
+        self.assertEqual(parsed_args.category, MockedBackendCommand.BACKEND.DEFAULT_CATEGORY)
+
+    def test_specific_category(self):
+        """Test whether a specific category is set when provided"""
 
         # An empty string is parsed
         args = ['--category', '']

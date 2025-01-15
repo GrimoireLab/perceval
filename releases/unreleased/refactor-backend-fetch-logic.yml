@@ -1,0 +1,13 @@
+---
+title: Refactor Backend Fetch Logic
+category: other
+author: Venu Vardhan Reddy Tekula <vt2182@nyu.edu>
+issue: 527
+notes: >
+  Refactored the `Backend` class to simplify and improve maintainability.
+  The `fetch` method is no longer overridden in subclasses. Instead,
+  subclasses are only required to implement the `fetch_items` method, where
+  the specific data retrieval logic is defined. This change ensures that any
+  updates to the `fetch` method in the `Backend` class are automatically
+  inherited by all subclasses, reducing the need to propagate changes across
+  multiple classes.

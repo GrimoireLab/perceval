@@ -688,9 +688,9 @@ class BackendCommandArgumentParser:
         """
         parsed_args = self.parser.parse_args(args)
 
-        # Category was not set, remove it
+        # Ensure category is set
         if parsed_args.category is None:
-            delattr(parsed_args, 'category')
+            parsed_args.category = self._backend.CATEGORIES[0]
 
         if self._from_date:
             parsed_args.from_date = str_to_datetime(parsed_args.from_date)
